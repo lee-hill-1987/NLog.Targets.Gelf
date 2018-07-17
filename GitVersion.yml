@@ -1,6 +1,6 @@
 branches:  
   master:
-    tag: ci
+    tag: infobip
     mode: ContinuousDeployment
     increment: Minor
     prevent-increment-of-merged-branch-version: false
