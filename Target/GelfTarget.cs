@@ -23,7 +23,7 @@ namespace NLog.Targets.Gelf
         public string Endpoint
         {
             get { return _endpoint.ToString(); }
-            set {  _endpoint = value != null ? new Uri(Environment.ExpandEnvironmentVariables(value)) : null; }
+            set { _endpoint = value != null ? new Uri(Environment.ExpandEnvironmentVariables(value)) : null; }
         }
 
         [ArrayParameter(typeof(GelfParameterInfo), "parameter")]
@@ -35,14 +35,16 @@ namespace NLog.Targets.Gelf
             set { _facility = value != null ? Environment.ExpandEnvironmentVariables(value) : null; }
         }
 
+        public int? MaxUdpPackageSize { get; set; }
+
         public bool SendLastFormatParameter { get; set; }
 
         public IConverter Converter { get; private set; }
         public IEnumerable<ITransport> Transports { get; private set; }
         public DnsBase Dns { get; private set; }
 
-        public GelfTarget() : this(new[]{new UdpTransport(new UdpTransportClient())}, 
-            new GelfConverter(), 
+        public GelfTarget() : this(new[] { new UdpTransport(new UdpTransportClient()) },
+            new GelfConverter(),
             new DnsWrapper())
         {
         }
@@ -93,7 +95,7 @@ namespace NLog.Targets.Gelf
             var jsonObject = Converter.GetGelfJson(logEvent, Facility);
             if (jsonObject == null) return;
             _lazyITransport.Value
-                .Send(_lazyIpEndoint.Value, jsonObject.ToString(Formatting.None, null));
+                .Send(_lazyIpEndoint.Value, jsonObject.ToString(Formatting.None, null), MaxUdpPackageSize);
         }
     }
 }
