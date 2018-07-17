@@ -1,3 +1,6 @@
+# This project is a fork
+Original https://github.com/2020Legal/NLog.Targets.Gelf
+
 # NLog.Targets.Gelf
 Gelf4NLog is an [NLog] target implementation to push log messages to [GrayLog2]. It implements the [Gelf] specification and communicates with GrayLog server via UDP.
 
@@ -62,7 +65,7 @@ Options are the following:
 * __facility:__ The graylog2 facility to send log messages
 * __sendLastFormatParameter:__ default false. If true last parameter of message format will be sent to graylog as separate field per property
 
-###Code
+### Code
 ```c#
 //excerpt from ConsoleRunner
 var eventInfo = new LogEventInfo
